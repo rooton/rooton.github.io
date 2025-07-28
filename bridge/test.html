@@ -58,23 +58,26 @@
     </div>
 
     <script type="text/javascript">
-      function getDatingToken() {
-        Dating.request(
-          "requestOne",
-          "Dating.getDatingToken",
-          '{"key1": "value1", "key2": 123, "key3": true}'
-        );
-      }
-
-      // Alternative: Define as a global object
       window.AppHandlers = {
         onRequestSuccess: function (requestId, data) {
           console.log(requestId);
 
-          jwtTokenText.textContent = data.token;
+          jwtTokenText.textContent = "Dating Token: " + data.token;
           jwtDisplay.style.display = "block";
         },
+
+        onRequestError: function (requestId, error) {
+          console.log("Error: " + error);
+        },
       };
+
+      function getDatingToken() {
+        Dating.request(
+          "someRequestID",
+          "Dating.getDatingToken",
+          '{"key1": "value1", "key2": 123, "key3": true}'
+        );
+      }
     </script>
 
     <footer></footer>
