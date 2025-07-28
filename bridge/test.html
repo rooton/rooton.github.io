@@ -34,18 +34,24 @@
       function showAndroidToast(toast) {
         App.showToast(toast);
       }
+      
+      let datingToken = ""
 
-      function showJwtToken(token) {
-        const jwtDisplay = document.getElementById("jwtDisplay");
+      function getJwtToken() {
+          const jwtDisplay = document.getElementById("jwtDisplay");
         const jwtTokenText = document.getElementById("jwtTokenText");
 
-        if (token) {
-          jwtTokenText.textContent = token;
+        if (datingToken) {
+          jwtTokenText.textContent = datingToken;
         } else {
           jwtTokenText.textContent = "No JWT token found";
         }
 
         jwtDisplay.style.display = "block";
+      }
+
+      function setJwtToken(token) {
+        datingToken = token
       }
     </script>
 
