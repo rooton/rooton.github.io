@@ -35,12 +35,10 @@
         App.showToast(toast);
       }
 
-      // Function to show JWT token when button is clicked
-      function showJwtToken() {
+      function showJwtToken(token) {
         const jwtDisplay = document.getElementById("jwtDisplay");
         const jwtTokenText = document.getElementById("jwtTokenText");
 
-        const token = window.windowProxy.datingApp.methodArgs[0];
         if (token) {
           jwtTokenText.textContent = token;
         } else {
