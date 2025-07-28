@@ -36,6 +36,7 @@
         onClick="getDatingToken()"
       />
       <br />
+      <input type="button" value="Track MixPanel" onClick="trackMixpanel()" />
     </div>
 
     <div
@@ -62,7 +63,9 @@
         onRequestSuccess: function (requestId, data) {
           console.log(requestId);
 
-          jwtTokenText.textContent = "Dating Token: " + data.token;
+          const payload = data ? " Data: " + data : "";
+
+          jwtTokenText.textContent = "Request ID: " + requestIdDating + payload;
           jwtDisplay.style.display = "block";
         },
 
@@ -73,8 +76,16 @@
 
       function getDatingToken() {
         Dating.request(
-          "someRequestID",
+          "someTokenRequestId",
           "Dating.getDatingToken",
+          '{"key1": "value1", "key2": 123, "key3": true}'
+        );
+      }
+
+      function trackMixpanel() {
+        Dating.request(
+          "someMixpanelRequestId",
+          "Dating.trackMixpanel",
           '{"key1": "value1", "key2": 123, "key3": true}'
         );
       }
