@@ -36,7 +36,7 @@
       }
 
       let datingToken = "Empty";
-
+      
       function getJwtToken() {
         const jwtDisplay = document.getElementById("jwtDisplay");
         const jwtTokenText = document.getElementById("jwtTokenText");
@@ -46,6 +46,7 @@
       }
 
       function setJwtToken(token) {
+        datingToken = token
         const jwtDisplay = document.getElementById("jwtDisplay");
         const jwtTokenText = document.getElementById("jwtTokenText");
 
