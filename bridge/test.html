@@ -4,37 +4,33 @@
     <meta charset="UTF-8" />
     <title>JS Bridge</title>
     <style>
-        body {
-            background-color: #7E7E7E;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        
-        .button-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        input[type="button"] {
-            margin: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+      body {
+        background-color: #7e7e7e;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .button-container {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      input[type="button"] {
+        margin: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
     <div class="button-container">
-      <input
-        type="button"
-        value="Show Toast"
-        onClick="getDatingToken()"
-      />
+      <input type="button" value="Show Toast" onClick="getDatingToken()" />
       <br />
       <input type="button" value="Show JWT Token" onClick="getJwtToken()" />
     </div>
@@ -59,13 +55,13 @@
     </div>
 
     <script type="text/javascript">
-
       function getDatingToken() {
-        Dating.getDatingToken();
+        const token = Dating.getDatingToken("token");
+        console.log("token=" + token);
       }
 
       let datingToken = "Nothing";
-      
+
       function getJwtToken() {
         const jwtDisplay = document.getElementById("jwtDisplay");
         const jwtTokenText = document.getElementById("jwtTokenText");
@@ -75,7 +71,7 @@
       }
 
       function setJwtToken(token) {
-        datingToken = token
+        datingToken = token;
       }
     </script>
 
