@@ -69,7 +69,7 @@
       // Alternative: Define as a global object
       window.AppHandlers = {
         onRequestSuccess: function (requestId, data) {
-          consol.log(requestId);
+          console.log(requestId);
 
           jwtTokenText.textContent = data.token;
           jwtDisplay.style.display = "block";
