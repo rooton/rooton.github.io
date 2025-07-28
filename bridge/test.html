@@ -57,6 +57,9 @@
     <script type="text/javascript">
       AppHandlers.onRequestSuccess("requestOne", (token) => {
         consol.log(token);
+
+        jwtTokenText.textContent = token;
+        jwtDisplay.style.display = "block";
       });
 
       function getDatingToken() {
@@ -65,9 +68,6 @@
           "Dating.getDatingToken",
           '{"key1": "value1", "key2": 123, "key3": true}'
         );
-
-        jwtTokenText.textContent = token;
-        jwtDisplay.style.display = "block";
       }
     </script>
 
