@@ -30,7 +30,11 @@
   </head>
   <body>
     <div class="button-container">
-      <input type="button" value="Show Dating Token" onClick="getDatingToken()" />
+      <input
+        type="button"
+        value="Show Dating Token"
+        onClick="getDatingToken()"
+      />
       <br />
     </div>
 
@@ -54,19 +58,19 @@
     </div>
 
     <script type="text/javascript">
-      AppHandlers.onRequestSuccess("requestOne", (token) => {
-        consol.log(token);
-
-        jwtTokenText.textContent = token;
-        jwtDisplay.style.display = "block";
-      });
-
       function getDatingToken() {
         Dating.request(
           "requestOne",
           "Dating.getDatingToken",
           '{"key1": "value1", "key2": 123, "key3": true}'
         );
+
+        AppHandlers.onRequestSuccess("requestOne", (token) => {
+          consol.log(token);
+
+          jwtTokenText.textContent = token;
+          jwtDisplay.style.display = "block";
+        });
       }
     </script>
 
