@@ -10,56 +10,45 @@
       value="Say hello"
       onClick="showAndroidToast('Hello Android!')"
     />
-    <br><br>
-    <input
-      type="button"
-      value="Show JWT Token"
-      onClick="showJwtToken()"
-    />
-    
-    <div id="jwtDisplay" style="margin-top: 20px; padding: 10px; background-color: #f0f0f0; border-radius: 5px; display: none;">
+    <br /><br />
+    <input type="button" value="Show JWT Token" onClick="showJwtToken()" />
+
+    <div
+      id="jwtDisplay"
+      style="
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        display: none;
+      "
+    >
       <h3>JWT Token:</h3>
-      <p id="jwtTokenText" style="word-break: break-all; font-family: monospace; font-size: 12px;"></p>
+      <p
+        id="jwtTokenText"
+        style="word-break: break-all; font-family: monospace; font-size: 12px"
+      ></p>
     </div>
 
     <script type="text/javascript">
-      let storedJwtToken = null;
-
       function showAndroidToast(toast) {
         App.showToast(toast);
       }
 
       // Function to show JWT token when button is clicked
       function showJwtToken() {
-        const jwtDisplay = document.getElementById('jwtDisplay');
-        const jwtTokenText = document.getElementById('jwtTokenText');
-        
-        if (storedJwtToken) {
-          jwtTokenText.textContent = storedJwtToken;
-        } else if (window.windowProxy?.datingApp?.methodArgs?.[0]) {
-          const token = window.windowProxy.datingApp.methodArgs[0];
+        const jwtDisplay = document.getElementById("jwtDisplay");
+        const jwtTokenText = document.getElementById("jwtTokenText");
+
+        const token = window.windowProxy.datingApp.methodArgs[0];
+        if (token) {
           jwtTokenText.textContent = token;
-          storedJwtToken = token;
         } else {
-          jwtTokenText.textContent = 'No JWT token found';
+          jwtTokenText.textContent = "No JWT token found";
         }
-        
-        jwtDisplay.style.display = 'block';
-      }
 
-      // Simple token handler
-      function handleJwtToken(token) {
-        storedJwtToken = token;
-        localStorage.setItem('jwtToken', token);
-        console.log('JWT Token received:', token);
+        jwtDisplay.style.display = "block";
       }
-
-      // Check for token periodically
-      setInterval(() => {
-        if (!storedJwtToken && window.windowProxy?.datingApp?.methodArgs?.[0]) {
-          handleJwtToken(window.windowProxy.datingApp.methodArgs[0]);
-        }
-      }, 500);
     </script>
 
     <footer></footer>
