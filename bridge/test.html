@@ -55,9 +55,13 @@
     </div>
 
     <script type="text/javascript">
+      AppHandlers.onRequestSuccess("requestOne", (token) => {
+        consol.log(token);
+      });
+
       function getDatingToken() {
-        const token = Dating.request(
-          "getDatingToken",
+        Dating.request(
+          "requestOne",
           "Dating.getDatingToken",
           '{"key1": "value1", "key2": 123, "key3": true}'
         );
