@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>JS Bridge</title>
-</head>
-<body>
-  
-    
-  <footer></footer>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS Bridge</title>
+  </head>
+  <body>
+    <input
+      type="button"
+      value="Say hello"
+      onClick="showAndroidToast('Hello Android!')"
+    />
+
+    <script type="text/javascript">
+      function showAndroidToast(toast) {
+        Android.showToast(toast);
+      }
+    </script>
+
+    <footer></footer>
+  </body>
 </html>
