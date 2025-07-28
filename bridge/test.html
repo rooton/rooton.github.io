@@ -33,7 +33,7 @@
       <input
         type="button"
         value="Show Toast"
-        onClick="showAndroidToast('Hello Android!')"
+        onClick="getDatingToken()"
       />
       <br />
       <input type="button" value="Show JWT Token" onClick="getJwtToken()" />
@@ -60,7 +60,7 @@
 
     <script type="text/javascript">
 
-      function getDatingToken(toast) {
+      function getDatingToken() {
         Dating.getDatingToken();
       }
 
