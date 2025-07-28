@@ -56,8 +56,9 @@
 
     <script type="text/javascript">
       function getDatingToken() {
-        const token = Dating.getDatingToken("token");
-        console.log("token=" + token);
+        Dating.getDatingToken("token", (token) => {
+          console.log("token=" + token);
+        });
       }
 
       let datingToken = "Nothing";
