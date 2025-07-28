@@ -15,6 +15,69 @@
       function showAndroidToast(toast) {
         App.showToast(toast);
       }
+
+      // Function to check and read windowProxy.datingApp
+      function checkForDatingApp() {
+        if (window.windowProxy && window.windowProxy.datingApp) {
+          const datingApp = window.windowProxy.datingApp;
+          console.log('Dating App Data Found:', datingApp);
+          
+          if (datingApp.methodName === 'getJwtToken' && datingApp.methodArgs) {
+            const jwtToken = datingApp.methodArgs[0];
+            console.log('JWT Token received:', jwtToken);
+            
+            // Display the token on the page
+            displayJwtToken(jwtToken);
+            
+            // You can now use the JWT token for API calls or other purposes
+            handleJwtToken(jwtToken);
+          }
+        } else {
+          console.log('windowProxy.datingApp not found yet, checking again...');
+          // Check again after a short delay
+          setTimeout(checkForDatingApp, 100);
+        }
+      }
+
+      // Function to display the JWT token on the page
+      function displayJwtToken(token) {
+        const footer = document.querySelector('footer');
+        footer.innerHTML = `
+          <div style="margin-top: 20px; padding: 10px; background-color: #f0f0f0; border-radius: 5px;">
+            <h3>JWT Token Received:</h3>
+            <p style="word-break: break-all; font-family: monospace; font-size: 12px;">${token}</p>
+          </div>
+        `;
+      }
+
+      // Function to handle the JWT token (customize as needed)
+      function handleJwtToken(token) {
+        // Example: Store in localStorage
+        localStorage.setItem('jwtToken', token);
+        
+        // Example: Make an authenticated API call
+        // fetch('/api/protected', {
+        //   headers: {
+        //     'Authorization': `Bearer ${token}`
+        //   }
+        // });
+        
+        console.log('JWT Token stored and ready to use');
+      }
+
+      // Start checking for the datingApp object when page loads
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('Page loaded, checking for windowProxy.datingApp...');
+        checkForDatingApp();
+      });
+
+      // Also check immediately in case DOMContentLoaded already fired
+      if (document.readyState === 'loading') {
+        // Document is still loading
+      } else {
+        // Document has finished loading
+        checkForDatingApp();
+      }
     </script>
 
     <footer></footer>
