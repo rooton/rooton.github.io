@@ -35,7 +35,7 @@
         App.showToast(toast);
       }
 
-      let datingToken = "Empty";
+      let datingToken = "Nothing";
       
       function getJwtToken() {
         const jwtDisplay = document.getElementById("jwtDisplay");
@@ -47,11 +47,6 @@
 
       function setJwtToken(token) {
         datingToken = token
-        const jwtDisplay = document.getElementById("jwtDisplay");
-        const jwtTokenText = document.getElementById("jwtTokenText");
-
-        jwtTokenText.textContent = datingToken;
-        jwtDisplay.style.display = "block";
       }
     </script>
 
