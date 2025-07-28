@@ -63,7 +63,7 @@
         onRequestSuccess: function (requestId, data) {
           console.log(requestId);
 
-          const payload = data ? " Data: " + data : "";
+          const payload = data ? " Data: " + JSON.stringify(data) : "";
 
           jwtTokenText.textContent = "Request ID: " + requestId + payload;
           jwtDisplay.style.display = "block";
