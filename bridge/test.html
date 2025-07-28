@@ -65,12 +65,12 @@
 
           const payload = data ? " Data: " + data : "";
 
-          jwtTokenText.textContent = "Request ID: " + requestIdDating + payload;
+          jwtTokenText.textContent = "Request ID: " + requestId + payload;
           jwtDisplay.style.display = "block";
         },
 
         onRequestError: function (requestId, error) {
-          console.log("Error: " + error);
+          console.log("Request ID: " + requestId + " Error: " + error);
         },
       };
 
