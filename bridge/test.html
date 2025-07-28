@@ -10,74 +10,56 @@
       value="Say hello"
       onClick="showAndroidToast('Hello Android!')"
     />
+    <br><br>
+    <input
+      type="button"
+      value="Show JWT Token"
+      onClick="showJwtToken()"
+    />
+    
+    <div id="jwtDisplay" style="margin-top: 20px; padding: 10px; background-color: #f0f0f0; border-radius: 5px; display: none;">
+      <h3>JWT Token:</h3>
+      <p id="jwtTokenText" style="word-break: break-all; font-family: monospace; font-size: 12px;"></p>
+    </div>
 
     <script type="text/javascript">
+      let storedJwtToken = null;
+
       function showAndroidToast(toast) {
         App.showToast(toast);
       }
 
-      // Function to check and read windowProxy.datingApp
-      function checkForDatingApp() {
-        if (window.windowProxy && window.windowProxy.datingApp) {
-          const datingApp = window.windowProxy.datingApp;
-          console.log('Dating App Data Found:', datingApp);
-          
-          if (datingApp.methodName === 'getJwtToken' && datingApp.methodArgs) {
-            const jwtToken = datingApp.methodArgs[0];
-            console.log('JWT Token received:', jwtToken);
-            
-            // Display the token on the page
-            displayJwtToken(jwtToken);
-            
-            // You can now use the JWT token for API calls or other purposes
-            handleJwtToken(jwtToken);
-          }
+      // Function to show JWT token when button is clicked
+      function showJwtToken() {
+        const jwtDisplay = document.getElementById('jwtDisplay');
+        const jwtTokenText = document.getElementById('jwtTokenText');
+        
+        if (storedJwtToken) {
+          jwtTokenText.textContent = storedJwtToken;
+        } else if (window.windowProxy?.datingApp?.methodArgs?.[0]) {
+          const token = window.windowProxy.datingApp.methodArgs[0];
+          jwtTokenText.textContent = token;
+          storedJwtToken = token;
         } else {
-          console.log('windowProxy.datingApp not found yet, checking again...');
-          // Check again after a short delay
-          setTimeout(checkForDatingApp, 100);
+          jwtTokenText.textContent = 'No JWT token found';
         }
+        
+        jwtDisplay.style.display = 'block';
       }
 
-      // Function to display the JWT token on the page
-      function displayJwtToken(token) {
-        const footer = document.querySelector('footer');
-        footer.innerHTML = `
-          <div style="margin-top: 20px; padding: 10px; background-color: #f0f0f0; border-radius: 5px;">
-            <h3>JWT Token Received:</h3>
-            <p style="word-break: break-all; font-family: monospace; font-size: 12px;">${token}</p>
-          </div>
-        `;
-      }
-
-      // Function to handle the JWT token (customize as needed)
+      // Simple token handler
       function handleJwtToken(token) {
-        // Example: Store in localStorage
+        storedJwtToken = token;
         localStorage.setItem('jwtToken', token);
-        
-        // Example: Make an authenticated API call
-        // fetch('/api/protected', {
-        //   headers: {
-        //     'Authorization': `Bearer ${token}`
-        //   }
-        // });
-        
-        console.log('JWT Token stored and ready to use');
+        console.log('JWT Token received:', token);
       }
 
-      // Start checking for the datingApp object when page loads
-      document.addEventListener('DOMContentLoaded', function() {
-        console.log('Page loaded, checking for windowProxy.datingApp...');
-        checkForDatingApp();
-      });
-
-      // Also check immediately in case DOMContentLoaded already fired
-      if (document.readyState === 'loading') {
-        // Document is still loading
-      } else {
-        // Document has finished loading
-        checkForDatingApp();
-      }
+      // Check for token periodically
+      setInterval(() => {
+        if (!storedJwtToken && window.windowProxy?.datingApp?.methodArgs?.[0]) {
+          handleJwtToken(window.windowProxy.datingApp.methodArgs[0]);
+        }
+      }, 500);
     </script>
 
     <footer></footer>
