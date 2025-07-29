@@ -29,7 +29,7 @@
     </style>
   </head>
   <body>
-    <div>Version: 0.0.4</div>
+    <div>Version: 0.0.5</div>
     <br />
     <div class="button-container">
       <input
@@ -84,11 +84,11 @@
       };
 
       function getDatingToken() {
-        Dating.request("00000000001", "Dating.getDatingToken", "{}");
+        App.request("00000000001", "Dating.getDatingToken", "{}");
       }
 
       function sendVerificationSuccess() {
-        Dating.request(
+        App.request(
           "00000000002",
           "Dating.sendVerificationSuccess",
           "{}"
@@ -96,7 +96,7 @@
       }
 
       function sendVerificationError() {
-        Dating.request(
+        App.request(
           "00000000003",
           "Dating.sendVerificationError",
           '{ "code": 500,  "messages": ["Something went wrong"]}'
