@@ -32,11 +32,21 @@
     <div class="button-container">
       <input
         type="button"
-        value="Show Dating Token"
+        value="Get Dating Token"
         onClick="getDatingToken()"
       />
       <br />
-      <input type="button" value="Track MixPanel" onClick="trackMixpanel()" />
+      <input
+        type="button"
+        value="Send Verification Success"
+        onClick="sendVerificationSuccess()"
+      />
+      <br />
+      <input
+        type="button"
+        value="Send Verification Error"
+        onClick="sendVerificationError()"
+      />
     </div>
 
     <div
@@ -60,8 +70,6 @@
     <script type="text/javascript">
       window.AppHandlers = {
         onRequestSuccess: function (requestId, data) {
-          console.log(requestId);
-
           const payload = data ? " Data: " + JSON.stringify(data) : "";
 
           jwtTokenText.textContent = "Request ID: " + requestId + payload;
@@ -74,19 +82,18 @@
       };
 
       function getDatingToken() {
-        Dating.request(
-          "someTokenRequestId",
-          "Dating.getDatingToken",
-          '{"key1": "value1", "key2": 123, "key3": true}'
-        );
+        App.request("someTokenRequestId", "Dating.getDatingToken", {});
       }
 
-      function trackMixpanel() {
-        Dating.request(
-          "someMixpanelRequestId",
-          "Dating.trackMixpanel",
-          '{"key1": "value1", "key2": 123, "key3": true}'
-        );
+      function sendVerificationSuccess() {
+        App.request("someTokenRequestId", "Dating.sendVerificationSuccess", {});
+      }
+
+      function sendVerificationError() {
+        App.request("someTokenRequestId", "Dating.sendVerificationError", {
+          code: 500,
+          messages: ["Something went wrong"],
+        });
       }
     </script>
 
