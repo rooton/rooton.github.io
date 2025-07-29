@@ -64,7 +64,7 @@
 
           const payload = data ? " Data: " + JSON.stringify(data) : "";
 
-          jwtTokenText.textContent = "Request ID: " + requestId + "<br />" + payload;
+          jwtTokenText.textContent = "Request ID: " + requestId + payload;
           jwtDisplay.style.display = "block";
         },
 
