@@ -108,24 +108,28 @@
       };
 
       function getDatingToken() {
-        App.request("00000000001", "Dating.getDatingToken", "{}");
+        const requiestId = Date.now();
+        App.request(requiestId, "Dating.getDatingToken", "{}");
       }
 
       function sendVerificationSuccess() {
-        App.request("00000000002", "Dating.sendVerificationSuccess", "{}");
+        const requiestId = Date.now();
+        App.request(requiestId, "Dating.sendVerificationSuccess", "{}");
       }
 
       function sendVerificationError() {
+        const requiestId = Date.now();
         App.request(
-          "00000000003",
+          requiestId,
           "Dating.sendVerificationError",
           '{ "code": 500,  "messages": ["Something went wrong"]}'
         );
       }
 
       function sendAnalytics() {
+        const requiestId = Date.now();
         App.request(
-          "00000000004",
+          requiestId,
           "Analytics.track",
           '{eventName: "Act on Dating by tabs [Dating]", "properties": {}}'
         );
