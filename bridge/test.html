@@ -111,7 +111,7 @@
       };
 
       function getDatingToken() {
-        const requiestId = Date.now().toString();
+        const requiestId = +Date.now();
         App.request(requiestId, "Dating.getDatingToken", "{}");
       }
 
@@ -121,7 +121,7 @@
       }
 
       function sendVerificationError() {
-        const requiestId = Date.now().toString();
+        const requiestId = Date.now();
         App.request(
           requiestId,
           "Dating.sendVerificationError",
