@@ -1,69 +1,53 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>JS Bridge</title>
-    <style>
-      body {
-        background-color: #7e7e7e;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        margin: 0;
-        font-family: Arial, sans-serif;
-      }
 
-      .button-container {
-        text-align: center;
-        margin-bottom: 20px;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <title>JS Bridge</title>
+  <style>
+    body {
+      background-color: #7e7e7e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
 
-      input[type="button"] {
-        margin: 5px;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-      }
-    </style>
-  </head>
-  <body>
-    <div>Version: 1.1.5</div>
+    .button-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="button"] {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div>Version: 1.1.6</div>
+  <br />
+  <div id="info"></div>
+  <br />
+  <div class="button-container">
+    <input type="button" value="Get Dating Token" onClick="getDatingToken()" />
     <br />
-    <div id="info"></div>
-    <br />
-    <div class="button-container">
-      <input
-        type="button"
-        value="Get Dating Token"
-        onClick="getDatingToken()"
-      />
-      <br />
-       <input
-        type="button"
-        value="Get Dating Token (forceFetch)"
-        onClick="getDatingToken(true)"
-      />
+    <input type="button" value="Get Dating Token (forceFetch)" onClick="getDatingToken(true)" />
     </br>
-      <input
-        type="button"
-        value="Send Verification Success"
-        onClick="sendVerificationSuccess()"
-      />
-      <br />
-      <input
-        type="button"
-        value="Send Verification Error"
-        onClick="sendVerificationError()"
-      />
-      <br />
-      <input type="button" value="Send Analytics" onClick="sendAnalytics()" />
-    </div>
+    <input type="button" value="Send Verification Success" onClick="sendVerificationSuccess()" />
+    <br />
+    <input type="button" value="Send Verification Error" onClick="sendVerificationError()" />
+    <br />
+    <input type="button" value="Send Analytics" onClick="sendAnalytics()" />
+  </div>
 
-    <div
-      id="jwtDisplay"
-      style="
+  <div id="jwtDisplay" style="
         margin-top: 20px;
         padding: 10px;
         background-color: #f0f0f0;
@@ -71,98 +55,122 @@
         display: none;
         max-width: 600px;
         width: 90%;
-      "
-    >
-      <p
-        id="jwtTokenText"
-        style="word-break: break-all; font-family: monospace; font-size: 12px"
-      ></p>
-    </div>
+      ">
+    <p id="jwtTokenText" style="word-break: break-all; font-family: monospace; font-size: 12px"></p>
+  </div>
 
-    <script type="text/javascript">
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const lang = urlParams.get("lang");
-      const sidParam = urlParams.get("sid");
+  <br />
+  <div id="error"></div>
+  <br />
 
-      let sid = null;
+  <script type="text/javascript">
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const lang = urlParams.get("lang");
+    const sidParam = urlParams.get("sid");
 
-      switch (sidParam) {
-        case "0":
-          sid = "Android";
-          break;
+    let sid = null;
 
-        case "1":
-          sid = "iOS";
-          break;
-      }
+    switch (sidParam) {
+      case "0":
+        sid = "Android";
+        break;
 
-      const infoDiv = document.getElementById("info");
-      infoDiv.textContent = "Lang: " + lang + ", sid: " + sid;
+      case "1":
+        sid = "iOS";
+        break;
+    }
 
-      window.AppHandlers = {
-        onRequestSuccess: function (requestId, data) {
-          const payload = data ? ", Data => " + JSON.stringify(data) : "";
-          const text = "Request ID => " + requestId + payload;
-          jwtTokenText.textContent = "onRequestSuccess: " + text;
-          jwtDisplay.style.display = "block";
-        },
+    const infoDiv = document.getElementById("info");
+    const errorDiv = document.getElementById("error");
 
-        onRequestError: function (requestId, message, code) {
-          const text =
-            "Request ID => " +
-            requestId +
-            ", Message => " +
-            message +
-            ", Code => " +
-            code;
+    infoDiv.textContent = "Lang: " + lang + ", sid: " + sid;
 
-          jwtTokenText.textContent = "onRequestError: " + text;
-          jwtDisplay.style.display = "block";
-        },
-      };
+    window.AppHandlers = {
+      onRequestSuccess: function (requestId, data) {
+        const payload = data ? ", Data => " + JSON.stringify(data) : "";
+        const text = "Request ID => " + requestId + payload;
+        jwtTokenText.textContent = "onRequestSuccess: " + text;
+        jwtDisplay.style.display = "block";
+        errorDiv.textContent = "";
+      },
 
-      function getDatingToken(forceFetch) {
+      onRequestError: function (requestId, message, code) {
+        const text =
+          "Request ID => " +
+          requestId +
+          ", Message => " +
+          message +
+          ", Code => " +
+          code;
+
+        jwtTokenText.textContent = "onRequestError: " + text;
+        jwtDisplay.style.display = "block";
+        errorDiv.textContent = "";
+      },
+    };
+
+    function getDatingToken(forceFetch) {
+      try {
         const requiestId = getRequestId();
         if (forceFetch) {
-           App.request(
+          App.request(
             requiestId,
             "Dating.getDatingToken",
             '{ "forceFetch" : true}'
           );
+          errorDiv.textContent = "";
         } else {
           App.request(requiestId, "Dating.getDatingToken", "{}");
         }
+      } catch (error) {
+        errorDiv.textContent = error;
       }
+    }
 
-      function sendVerificationSuccess() {
+    function sendVerificationSuccess() {
+      try {
         const requiestId = getRequestId();
         App.request(requiestId, "Dating.sendVerificationSuccess", "{}");
+        errorDiv.textContent = "";
+      } catch (error) {
+        errorDiv.textContent = error;
       }
+    }
 
-      function sendVerificationError() {
+    function sendVerificationError() {
+      try {
         const requiestId = getRequestId();
         App.request(
           requiestId,
           "Dating.sendVerificationError",
           '{ "code": 500,  "messages": ["Something went wrong"]}'
         );
+        errorDiv.textContent = "";
+      } catch (error) {
+        errorDiv.textContent = error;
       }
+    }
 
-      function sendAnalytics() {
+    function sendAnalytics() {
+      try {
         const requiestId = getRequestId();
         App.request(
           requiestId,
           "Analytics.track",
           '{eventName: "Act on Dating by tabs [Dating]", "properties": {}}'
         );
+      } catch (error) {
+        errorDiv.textContent = error;
       }
+    }
 
-      function getRequestId() {
-        return +String(Date.now()).slice(-7).padStart(7, "0");
-      }
-    </script>
+    function getRequestId() {
+      return +String(Date.now()).slice(-7).padStart(7, "0");
+    }
+  </script>
 
-    <footer></footer>
-  </body>
+  <footer></footer>
+</body>
+
 </html>
