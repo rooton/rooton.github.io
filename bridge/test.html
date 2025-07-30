@@ -29,7 +29,7 @@
     </style>
   </head>
   <body>
-    <div>Version: 1.1.4</div>
+    <div>Version: 1.1.5</div>
     <br />
     <div id="info"></div>
     <br />
@@ -102,7 +102,7 @@
 
       window.AppHandlers = {
         onRequestSuccess: function (requestId, data) {
-          const payload = data ? " Data => " + JSON.stringify(data) : "";
+          const payload = data ? ", Data => " + JSON.stringify(data) : "";
           const text = "Request ID => " + requestId + payload;
           jwtTokenText.textContent = "onRequestSuccess: " + text;
           jwtDisplay.style.display = "block";
@@ -112,9 +112,9 @@
           const text =
             "Request ID => " +
             requestId +
-            " Message => " +
+            ", Message => " +
             message +
-            " Code => " +
+            ", Code => " +
             code;
 
           jwtTokenText.textContent = "onRequestError: " + text;
