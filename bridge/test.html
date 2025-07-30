@@ -29,7 +29,7 @@
     </style>
   </head>
   <body>
-    <div>Version: 0.0.10</div>
+    <div>Version: 0.1.0</div>
     <br />
     <div id="info"></div>
     <br />
@@ -74,6 +74,9 @@
     </div>
 
     <script type="text/javascript">
+      const test = Date.now();
+      console.log(test);
+
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const lang = urlParams.get("lang");
@@ -108,17 +111,17 @@
       };
 
       function getDatingToken() {
-        const requiestId = Date.now();
+        const requiestId = Date.now().toString();
         App.request(requiestId, "Dating.getDatingToken", "{}");
       }
 
       function sendVerificationSuccess() {
-        const requiestId = Date.now();
+        const requiestId = Date.now().toString();
         App.request(requiestId, "Dating.sendVerificationSuccess", "{}");
       }
 
       function sendVerificationError() {
-        const requiestId = Date.now();
+        const requiestId = Date.now().toString();
         App.request(
           requiestId,
           "Dating.sendVerificationError",
@@ -127,7 +130,7 @@
       }
 
       function sendAnalytics() {
-        const requiestId = Date.now();
+        const requiestId = Date.now().toString();
         App.request(
           requiestId,
           "Analytics.track",
