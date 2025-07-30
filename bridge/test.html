@@ -29,7 +29,7 @@
     </style>
   </head>
   <body>
-    <div>Version: 0.1.1</div>
+    <div>Version: 0.1.2</div>
     <br />
     <div id="info"></div>
     <br />
@@ -121,7 +121,7 @@
       }
 
       function sendVerificationError() {
-        const requiestId = 25;
+        const requiestId = getRequestId();
         App.request(
           requiestId,
           "Dating.sendVerificationError",
@@ -137,6 +137,11 @@
           '{eventName: "Act on Dating by tabs [Dating]", "properties": {}}'
         );
       }
+
+      function getRequestId() {
+        return +String(Date.now()).slice(-7).padStart(7, "0")
+      }
+
     </script>
 
     <footer></footer>
