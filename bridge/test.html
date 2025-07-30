@@ -111,12 +111,12 @@
       };
 
       function getDatingToken() {
-        const requiestId = +Date.now();
+        const requiestId = getRequestId();
         App.request(requiestId, "Dating.getDatingToken", "{}");
       }
 
       function sendVerificationSuccess() {
-        const requiestId = Date.now().toString();
+        const requiestId = getRequestId();
         App.request(requiestId, "Dating.sendVerificationSuccess", "{}");
       }
 
@@ -130,7 +130,7 @@
       }
 
       function sendAnalytics() {
-        const requiestId = Date.now().toString();
+        const requiestId = getRequestId();
         App.request(
           requiestId,
           "Analytics.track",
@@ -139,9 +139,8 @@
       }
 
       function getRequestId() {
-        return +String(Date.now()).slice(-7).padStart(7, "0")
+        return +String(Date.now()).slice(-7).padStart(7, "0");
       }
-
     </script>
 
     <footer></footer>
