@@ -14,24 +14,111 @@
       min-height: 100vh;
       margin: 0;
       font-family: Arial, sans-serif;
+      font-size: 1.25rem;
+      color: white;
+    }
+
+    /* Version and info text styling */
+    #info {
+      font-size: 2.5rem;
+      font-weight: 500;
+      text-align: center;
+      margin: 0.25rem 0;
+    }
+
+    /* Version text styling */
+    body > div:first-child {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
     }
 
     .button-container {
       text-align: center;
       margin-bottom: 20px;
+      width: 100%;
+      max-width: 600px;
+      padding: 0 1rem;
     }
 
+    /* Responsive button styles */
     input[type="button"] {
-      margin: 5px;
-      padding: 10px 20px;
-      font-size: 16px;
+      /* Use relative units for responsive sizing - MUCH BIGGER */
+      padding: clamp(1.5rem, 4vw, 2.5rem) clamp(3rem, 8vw, 4rem);
+      font-size: clamp(1.5rem, 4.5vw, 2rem);
+      
+      /* Visual styling */
+      background-color: white;
+      color: black;
+      border: 1px solid #ccc;
+      border-radius: 0.75rem;
       cursor: pointer;
+      font-weight: 600;
+      
+      /* Responsive width and spacing - AUTO WIDTH FOR TEXT */
+      width: auto;
+      max-width: 90vw;
+      min-width: 350px;
+      margin: 1rem 0;
+      display: block;
+      white-space: nowrap;
+      
+      /* Smooth transitions */
+      transition: all 0.2s ease;
+    }
+
+    /* Hover and focus states */
+    input[type="button"]:hover {
+      background-color: #f8f9fa;
+      border-color: #999;
+      transform: translateY(-1px);
+    }
+
+    input[type="button"]:focus {
+      outline: 2px solid #007bff;
+      outline-offset: 2px;
+    }
+
+    input[type="button"]:active {
+      transform: translateY(0);
+      background-color: #e9ecef;
+    }
+
+    /* Media queries for fine-tuned control */
+    @media (max-width: 480px) {
+      input[type="button"] {
+        font-size: 1.375rem;
+        padding: 1.25rem 2.5rem;
+        min-width: 280px;
+        max-width: 95vw;
+      }
+      
+      .button-container {
+        padding: 0 0.5rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      input[type="button"] {
+        width: auto;
+        min-width: 350px;
+        display: inline-block;
+        margin: 1rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      input[type="button"] {
+        min-width: 400px;
+        font-size: 1.75rem;
+        padding: 2rem 3.5rem;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div>Version: 1.1.6</div>
+  <div>Version: 1.1.7</div>
   <br />
   <div id="info"></div>
   <br />
