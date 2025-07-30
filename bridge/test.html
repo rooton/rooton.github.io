@@ -29,7 +29,7 @@
     </style>
   </head>
   <body>
-    <div>Version: 1.1.2</div>
+    <div>Version: 1.1.1</div>
     <br />
     <div id="info"></div>
     <br />
@@ -118,11 +118,7 @@
 
       function getDatingToken() {
         const requiestId = getRequestId();
-        App.request(
-          requiestId,
-          "Dating.getDatingToken",
-          '{ "forceFetch": true }'
-        );
+        App.request(requiestId, "Dating.getDatingToken", "{}");
       }
 
       function sendVerificationSuccess() {
