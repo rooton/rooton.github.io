@@ -211,7 +211,7 @@
 
     function getDatingToken(forceFetch) {
       try {
-        const requiestId = getRequestId();
+        const requestId = getRequestId();
         const method = "Dating.getDatingToken";
         let body = {};
 
@@ -220,10 +220,10 @@
         }
 
         if (sidParam === "0") {
-          App.request(requiestId, method, JSON.stringify(body))
+          App.request(requestId, method, JSON.stringify(body))
         } else {
           window.webkit.messageHandlers.App.postMessage({
-            requestId: requiestId,
+            requestId: requestId,
             method: method,
             body: body,
           });
@@ -237,15 +237,15 @@
 
     function sendVerificationSuccess() {
       try {
-        const requiestId = getRequestId();
+        const requestId = getRequestId();
         const method = "Dating.sendVerificationSuccess";
         const body = {};
 
         if (sidParam === "0") {
-          App.request(requiestId, method, JSON.stringify(body))
+          App.request(requestId, method, JSON.stringify(body))
         } else {
           window.webkit.messageHandlers.App.postMessage({
-            requestId: requiestId,
+            requestId: requestId,
             method: method,
             body: body,
           });
@@ -259,7 +259,7 @@
 
     function sendVerificationError() {
       try {
-        const requiestId = getRequestId();
+        const requestId = getRequestId();
         const method = "Dating.sendVerificationError";
         const body = {
           code: 500,
@@ -267,10 +267,10 @@
         };
 
         if (sidParam === "0") {
-          App.request(requiestId, method, JSON.stringify(body))
+          App.request(requestId, method, JSON.stringify(body))
         } else {
           window.webkit.messageHandlers.App.postMessage({
-            requestId: requiestId,
+            requestId: requestId,
             method: method,
             body: body,
           });
@@ -284,7 +284,7 @@
 
     function sendAnalytics() {
       try {
-        const requiestId = getRequestId();
+        const requestId = getRequestId();
         const method = "Analytics.track";
         const body = {
           eventName: "Act on Dating by tabs [Dating]",
@@ -292,10 +292,10 @@
         };
 
         if (sidParam === "0") {
-          App.request(requiestId, method, JSON.stringify(body))
+          App.request(requestId, method, JSON.stringify(body))
         } else {
           window.webkit.messageHandlers.App.postMessage({
-            requestId: requiestId,
+            requestId: requestId,
             method: method,
             body: body,
           });
