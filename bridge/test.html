@@ -165,13 +165,14 @@
   <script type="text/javascript">
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const lang = urlParams.get("lang");
     const os = urlParams.get("os");
+    const lang = urlParams.get("lang");
+    const locale = urlParams.get("locale");
 
     const infoDiv = document.getElementById("info");
     const errorDiv = document.getElementById("error");
 
-    infoDiv.textContent = "Lang: " + lang + ",  OS: " + os;
+    infoDiv.textContent = "OS: " + os + ",  Lang: " + lang + ", Locale" + locale;
 
     window.AppHandlers = {
       onRequestSuccess: function (requestId, data) {
@@ -229,7 +230,7 @@
         const method = "Dating.sendVerificationSuccess";
         const body = {};
 
-         if (os === "android") {
+        if (os === "android") {
           App.request(requestId, method, JSON.stringify(body))
         } else {
           window.webkit.messageHandlers.App.postMessage({
@@ -254,7 +255,7 @@
           messages: ["Something went wrong"]
         };
 
-         if (os === "android") {
+        if (os === "android") {
           App.request(requestId, method, JSON.stringify(body))
         } else {
           window.webkit.messageHandlers.App.postMessage({
@@ -279,7 +280,7 @@
           properties: {}
         };
 
-         if (os === "android") {
+        if (os === "android") {
           App.request(requestId, method, JSON.stringify(body))
         } else {
           window.webkit.messageHandlers.App.postMessage({
