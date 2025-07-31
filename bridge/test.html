@@ -31,7 +31,7 @@
     }
 
     /* Version text styling - responsive and smaller */
-    body > div:first-child {
+    body>div:first-child {
       font-size: clamp(0.875rem, 2.5vw, 1.25rem);
       font-weight: 600;
       margin-bottom: 0.25rem;
@@ -54,7 +54,7 @@
       /* Percentage-based responsive sizing */
       padding: 3vw 6vw;
       font-size: 4vw;
-      
+
       /* Visual styling */
       background-color: white;
       color: black;
@@ -62,7 +62,7 @@
       border-radius: 0.75rem;
       cursor: pointer;
       font-weight: 600;
-      
+
       /* Auto width to fit text with percentage-based constraints - CENTERED */
       width: auto;
       max-width: 90vw;
@@ -90,6 +90,7 @@
 
     /* Media queries for fine-tuned control */
     @media (max-width: 320px) {
+
       /* Very small screens - slightly larger percentage */
       input[type="button"] {
         font-size: 5vw;
@@ -101,6 +102,7 @@
     }
 
     @media (min-width: 768px) {
+
       /* Tablets and larger - cap the growth */
       input[type="button"] {
         font-size: clamp(1.25rem, 4vw, 1.75rem);
@@ -112,6 +114,7 @@
     }
 
     @media (min-width: 1200px) {
+
       /* Large screens - prevent buttons from getting too big */
       input[type="button"] {
         font-size: 1.5rem;
@@ -125,7 +128,7 @@
 </head>
 
 <body>
-  <div>Version: 1.1.11</div>
+  <div>Version: 1.1.12</div>
   <br />
   <div id="info"></div>
   <br />
@@ -151,7 +154,8 @@
         width: 90%;
         color: #333;
       ">
-    <p id="jwtTokenText" style="word-break: break-all; font-family: monospace; font-size: 12px; color: #333; margin: 0;"></p>
+    <p id="jwtTokenText"
+      style="word-break: break-all; font-family: monospace; font-size: 12px; color: #333; margin: 0;"></p>
   </div>
 
   <br />
@@ -236,11 +240,23 @@
     function sendVerificationError() {
       try {
         const requiestId = getRequestId();
-        App.request(
-          requiestId,
-          "Dating.sendVerificationError",
-          '{ "code": 500,  "messages": ["Something went wrong"]}'
-        );
+
+        window.webkit.messageHandlers.App.postMessage({
+          requestId: requiestId,
+          method: "Dating.sendVerificationError",
+          body: {
+            code: 500,
+            messages: ["Something went wrong"]
+          }
+        });
+
+
+
+        // App.request(
+        //   requiestId,
+        //   "Dating.sendVerificationError",
+        //   '{ "code": 500,  "messages": ["Something went wrong"]}'
+        // );
         errorDiv.textContent = "";
       } catch (error) {
         errorDiv.textContent = error;
