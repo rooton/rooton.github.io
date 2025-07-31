@@ -128,7 +128,7 @@
 </head>
 
 <body>
-  <div>Version: 1.1.12</div>
+  <div>Version: 1.1.14</div>
   <br />
   <div id="info"></div>
   <br />
@@ -212,16 +212,24 @@
     function getDatingToken(forceFetch) {
       try {
         const requiestId = getRequestId();
+        const method = "Dating.getDatingToken";
+        let body = {};
+
         if (forceFetch) {
-          App.request(
-            requiestId,
-            "Dating.getDatingToken",
-            '{ "forceFetch" : true}'
-          );
-          errorDiv.textContent = "";
-        } else {
-          App.request(requiestId, "Dating.getDatingToken", "{}");
+          body = { forceFetch: true };
         }
+
+        if (sidParam === "0") {
+          App.request(requiestId, method, JSON.stringify(body))
+        } else {
+          window.webkit.messageHandlers.App.postMessage({
+            requestId: requiestId,
+            method: method,
+            body: body,
+          });
+        }
+
+        errorDiv.textContent = "";
       } catch (error) {
         errorDiv.textContent = error;
       }
@@ -230,7 +238,19 @@
     function sendVerificationSuccess() {
       try {
         const requiestId = getRequestId();
-        App.request(requiestId, "Dating.sendVerificationSuccess", "{}");
+        const method = "Dating.sendVerificationSuccess";
+        const body = {};
+
+        if (sidParam === "0") {
+          App.request(requiestId, method, JSON.stringify(body))
+        } else {
+          window.webkit.messageHandlers.App.postMessage({
+            requestId: requiestId,
+            method: method,
+            body: body,
+          });
+        }
+
         errorDiv.textContent = "";
       } catch (error) {
         errorDiv.textContent = error;
@@ -240,23 +260,22 @@
     function sendVerificationError() {
       try {
         const requiestId = getRequestId();
+        const method = "Dating.sendVerificationError";
+        const body = {
+          code: 500,
+          messages: ["Something went wrong"]
+        };
 
-        window.webkit.messageHandlers.App.postMessage({
-          requestId: requiestId,
-          method: "Dating.sendVerificationError",
-          body: {
-            code: 500,
-            messages: ["Something went wrong"]
-          }
-        });
+        if (sidParam === "0") {
+          App.request(requiestId, method, JSON.stringify(body))
+        } else {
+          window.webkit.messageHandlers.App.postMessage({
+            requestId: requiestId,
+            method: method,
+            body: body,
+          });
+        }
 
-
-
-        // App.request(
-        //   requiestId,
-        //   "Dating.sendVerificationError",
-        //   '{ "code": 500,  "messages": ["Something went wrong"]}'
-        // );
         errorDiv.textContent = "";
       } catch (error) {
         errorDiv.textContent = error;
@@ -266,11 +285,22 @@
     function sendAnalytics() {
       try {
         const requiestId = getRequestId();
-        App.request(
-          requiestId,
-          "Analytics.track",
-          '{eventName: "Act on Dating by tabs [Dating]", "properties": {}}'
-        );
+        const method = "Analytics.track";
+        const body = {
+          eventName: "Act on Dating by tabs [Dating]",
+          properties: {}
+        };
+
+        if (sidParam === "0") {
+          App.request(requiestId, method, JSON.stringify(body))
+        } else {
+          window.webkit.messageHandlers.App.postMessage({
+            requestId: requiestId,
+            method: method,
+            body: body,
+          });
+        }
+
       } catch (error) {
         errorDiv.textContent = error;
       }
