@@ -128,7 +128,7 @@
 </head>
 
 <body>
-  <div>Version: 1.1.15</div>
+  <div>Version: 1.1.16</div>
   <br />
   <div id="info"></div>
   <br />
@@ -166,24 +166,12 @@
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const lang = urlParams.get("lang");
-    const sidParam = urlParams.get("sid");
-
-    let platform = null;
-
-    switch (sidParam) {
-      case "0":
-        platform = "Android";
-        break;
-
-      case "1":
-        platform = "iOS";
-        break;
-    }
+    const os = urlParams.get("os");
 
     const infoDiv = document.getElementById("info");
     const errorDiv = document.getElementById("error");
 
-    infoDiv.textContent = "Lang: " + lang + ", Platform: " + platform;
+    infoDiv.textContent = "Lang: " + lang + ",  OS: " + os;
 
     window.AppHandlers = {
       onRequestSuccess: function (requestId, data) {
@@ -219,7 +207,7 @@
           body = { forceFetch: true };
         }
 
-        if (sidParam === "0") {
+        if (os === "android") {
           App.request(requestId, method, JSON.stringify(body))
         } else {
           window.webkit.messageHandlers.App.postMessage({
@@ -241,7 +229,7 @@
         const method = "Dating.sendVerificationSuccess";
         const body = {};
 
-        if (sidParam === "0") {
+         if (os === "android") {
           App.request(requestId, method, JSON.stringify(body))
         } else {
           window.webkit.messageHandlers.App.postMessage({
@@ -266,7 +254,7 @@
           messages: ["Something went wrong"]
         };
 
-        if (sidParam === "0") {
+         if (os === "android") {
           App.request(requestId, method, JSON.stringify(body))
         } else {
           window.webkit.messageHandlers.App.postMessage({
@@ -291,7 +279,7 @@
           properties: {}
         };
 
-        if (sidParam === "0") {
+         if (os === "android") {
           App.request(requestId, method, JSON.stringify(body))
         } else {
           window.webkit.messageHandlers.App.postMessage({
