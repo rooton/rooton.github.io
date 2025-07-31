@@ -128,7 +128,7 @@
 </head>
 
 <body>
-  <div>Version: 1.1.14</div>
+  <div>Version: 1.1.15</div>
   <br />
   <div id="info"></div>
   <br />
@@ -168,22 +168,22 @@
     const lang = urlParams.get("lang");
     const sidParam = urlParams.get("sid");
 
-    let sid = null;
+    let platform = null;
 
     switch (sidParam) {
       case "0":
-        sid = "Android";
+        platform = "Android";
         break;
 
       case "1":
-        sid = "iOS";
+        platform = "iOS";
         break;
     }
 
     const infoDiv = document.getElementById("info");
     const errorDiv = document.getElementById("error");
 
-    infoDiv.textContent = "Lang: " + lang + ", sid: " + sid;
+    infoDiv.textContent = "Lang: " + lang + ", Platform: " + platform;
 
     window.AppHandlers = {
       onRequestSuccess: function (requestId, data) {
