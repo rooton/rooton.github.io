@@ -128,7 +128,7 @@
 </head>
 
 <body>
-  <div>Version: 1.1.18</div>
+  <div>Version: 1.1.19</div>
   <br />
   <div id="info"></div>
   <br />
@@ -175,28 +175,35 @@
     infoDiv.textContent = "OS: " + os + ",  Lang: " + lang + ", Locale: " + locale;
 
     window.onload = function () {
-      try {
-        const requestId = getRequestId();
-        const method = "Dating.emitEvent";
-        const body = {
-          name: "app_finished_loading",
-        };
 
-        if (os === "android") {
-          App.request(requestId, method, JSON.stringify(body))
-        } else if (os === "ios") {
-          window.webkit.messageHandlers.App.postMessage({
-            requestId: requestId,
-            method: method,
-            body: body,
-          });
-        } else {
-          errorDiv.textContent = "Loaded";
-        }   
+      setTimeout(function () {
+        // Code to execute after 5 seconds
+        console.log("5 seconds have passed!");
 
-      } catch (error) {
-        errorDiv.textContent = error;
-      }
+        try {
+          const requestId = getRequestId();
+          const method = "Dating.emitEvent";
+          const body = {
+            name: "app_finished_loading",
+          };
+
+          if (os === "android") {
+            App.request(requestId, method, JSON.stringify(body))
+          } else if (os === "ios") {
+            window.webkit.messageHandlers.App.postMessage({
+              requestId: requestId,
+              method: method,
+              body: body,
+            });
+          } else {
+            errorDiv.textContent = "Loaded";
+          }
+
+        } catch (error) {
+          errorDiv.textContent = error;
+        }
+
+      }, 5000); // 5000 milliseconds = 5 seconds
     };
 
     window.AppHandlers = {
