@@ -128,7 +128,7 @@
 </head>
 
 <body>
-  <div>Version: 1.1.17</div>
+  <div>Version: 1.1.18</div>
   <br />
   <div id="info"></div>
   <br />
@@ -173,6 +173,31 @@
     const errorDiv = document.getElementById("error");
 
     infoDiv.textContent = "OS: " + os + ",  Lang: " + lang + ", Locale: " + locale;
+
+    window.onload = function () {
+      try {
+        const requestId = getRequestId();
+        const method = "Dating.emitEvent";
+        const body = {
+          name: "app_finished_loading",
+        };
+
+        if (os === "android") {
+          App.request(requestId, method, JSON.stringify(body))
+        } else if (os === "ios") {
+          window.webkit.messageHandlers.App.postMessage({
+            requestId: requestId,
+            method: method,
+            body: body,
+          });
+        } else {
+          errorDiv.textContent = "Loaded";
+        }   
+
+      } catch (error) {
+        errorDiv.textContent = error;
+      }
+    };
 
     window.AppHandlers = {
       onRequestSuccess: function (requestId, data) {
