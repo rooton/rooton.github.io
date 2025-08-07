@@ -118,7 +118,7 @@
       /* Large screens - prevent buttons from getting too big */
       input[type="button"] {
         font-size: 1.5rem;
-        padding: 1.25rem 2.5rem;
+        padding: 1.20rem 2.5rem;
         max-width: 500px;
         min-width: 350px;
         margin: 0.5rem auto;
@@ -128,7 +128,7 @@
 </head>
 
 <body>
-  <div>Version: 1.1.24</div>
+  <div>Version: 1.1.25</div>
   <br />
   <div id="info"></div>
   <br />
@@ -143,9 +143,11 @@
     <br />
     <input type="button" value="Send Analytics" onClick="sendAnalytics()" />
     <br />
-    <input type="button" value="Test Video Media" onClick="testVideoMedia()" />
-    <br/> 
-    <input type="button" value="Test Audio Media" onClick="testAudioMedia()" />
+    <input type="button" value="Test Video" onClick="testVideoMedia()" />
+    <br />
+    <input type="button" value="Test Audio (Not Allowed)" onClick="testAudioMedia()" />
+    <br />
+    <input type="button" value="Test Both (Not Allowed)" onClick="testAudioVideo()" />
   </div>
 
   <div id="jwtDisplay" style="
@@ -163,7 +165,7 @@
   </div>
 
   <br />
-  <div id="error"></div>
+  <div id="error" style="padding-left: 16px; padding-right: 16px;"></div>
   <br />
 
   <script type="text/javascript">
@@ -349,6 +351,21 @@
         })
         .catch((err) => {
           errorDiv.textContent = "Error accessing the audio: " + err;
+        });
+    }
+
+    function testAudioVideo() {
+      console.log("testAudioVideo()");
+
+      navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+      })
+        .then((stream) => {
+          errorDiv.textContent = "Media access granted";
+        })
+        .catch((err) => {
+          errorDiv.textContent = "Error accessing the media: " + err;
         });
     }
 
