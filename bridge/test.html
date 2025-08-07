@@ -128,7 +128,7 @@
 </head>
 
 <body>
-  <div>Version: 1.1.23</div>
+  <div>Version: 1.1.24</div>
   <br />
   <div id="info"></div>
   <br />
@@ -143,7 +143,9 @@
     <br />
     <input type="button" value="Send Analytics" onClick="sendAnalytics()" />
     <br />
-    <input type="button" value="Test Media" onClick="testMedia()" />
+    <input type="button" value="Test Video Media" onClick="testVideoMedia()" />
+    <br/> 
+    <input type="button" value="Test Audio Media" onClick="testAudioMedia()" />
   </div>
 
   <div id="jwtDisplay" style="
@@ -322,8 +324,8 @@
       }
     }
 
-    function testMedia() {
-      console.log("testMedia()");
+    function testVideoMedia() {
+      console.log("testVideoMedia()");
 
       navigator.mediaDevices.getUserMedia({
         video: true
@@ -333,6 +335,20 @@
         })
         .catch((err) => {
           errorDiv.textContent = "Error accessing the camera: " + err;
+        });
+    }
+
+    function testAudioMedia() {
+      console.log("testAudioMedia()");
+
+      navigator.mediaDevices.getUserMedia({
+        audio: true
+      })
+        .then((stream) => {
+          errorDiv.textContent = "Audio access granted";
+        })
+        .catch((err) => {
+          errorDiv.textContent = "Error accessing the audio: " + err;
         });
     }
 
