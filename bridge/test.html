@@ -142,6 +142,8 @@
     <input type="button" value="Send Verification Failed" onClick="sendVerificationError()" />
     <br />
     <input type="button" value="Send Analytics" onClick="sendAnalytics()" />
+    <br />
+    <input type="button" value="Test Media" onClick="testMedia()" />
   </div>
 
   <div id="jwtDisplay" style="
@@ -192,7 +194,7 @@
           });
         } else {
           errorDiv.textContent = "Loaded";
-        }   
+        }
 
       } catch (error) {
         errorDiv.textContent = error;
@@ -318,6 +320,20 @@
       } catch (error) {
         errorDiv.textContent = error;
       }
+    }
+
+    function testMedia() {
+      console.log("testMedia()");
+
+      navigator.mediaDevices.getUserMedia({
+        video: true
+      })
+        .then((stream) => {
+          console.log("Camera access granted", stream);
+        })
+        .catch((err) => {
+          console.error("Error accessing the camera:", err);
+        });
     }
 
     function getRequestId() {
