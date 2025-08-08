@@ -133,7 +133,7 @@
 </head>
 
 <body>
-  <div>Version: 1.1.26</div>
+  <div>Version: 1.1.27</div>
   <br />
   <div id="info"></div>
   <br />
@@ -153,6 +153,10 @@
     <input type="button" value="Test Audio (Not Allowed)" onClick="testAudioMedia()" />
     <br />
     <input type="button" value="Test Both (Not Allowed)" onClick="testAudioVideo()" />
+    <br />
+    <video id="video_stream" width="320" height="240" controls>
+      Your browser does not support the video tag.
+    </video>
   </div>
 
   <div id="jwtDisplay" style="
@@ -338,6 +342,11 @@
         video: true
       })
         .then((stream) => {
+          const video = document.getElementById("video_stream")
+          video.srcObject = stream;
+          video.autoplay = true;
+          video.playsInline = true;
+          video.muted = true;
           errorDiv.textContent = "Camera access granted";
         })
         .catch((err) => {
