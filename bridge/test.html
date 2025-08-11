@@ -338,7 +338,9 @@
       console.log("testVideoMedia()");
 
       navigator.mediaDevices.getUserMedia({
-        video: true
+        video: {
+          facingMode: "user" // "user" requests the front-facing camera
+        },
       })
         .then((stream) => {
           const video = document.getElementById("video_stream")
@@ -371,10 +373,8 @@
       console.log("testAudioVideo()");
 
       navigator.mediaDevices.getUserMedia({
-        video: {
-          facingMode: "user" // "user" requests the front-facing camera
-        },
-        audio: false
+        video: true,
+        audio: true
       })
         .then((stream) => {
           errorDiv.textContent = "Media access granted";
