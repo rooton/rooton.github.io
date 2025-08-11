@@ -133,7 +133,7 @@
 </head>
 
 <body>
-  <div>Version: 1.1.27</div>
+  <div>Version: 1.1.28</div>
   <br />
   <div id="info"></div>
   <br />
@@ -371,7 +371,9 @@
       console.log("testAudioVideo()");
 
       navigator.mediaDevices.getUserMedia({
-        video: true,
+        video: {
+          facingMode: "user" // "user" requests the front-facing camera
+        },
         audio: true
       })
         .then((stream) => {
