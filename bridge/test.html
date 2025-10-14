@@ -214,13 +214,7 @@
         errorDiv.textContent = error;
       }
     };
-
-    window.AppEvent = {
-      ClientSettingsChanged: function (data) {
-        console.log("Data => " + JSON.stringify(data));
-      }
-    }
-
+    
     window.AppHandlers = {
       onRequestSuccess: function (requestId, data) {
         const payload = data ? ", Data => " + JSON.stringify(data) : "";
@@ -244,8 +238,8 @@
         errorDiv.textContent = "";
       },
 
-      onEvent: function(data) {
-        console.log("Data => " + JSON.stringify(data));
+      onEvent: function (event, params) {
+        console.log("Data => " + JSON.stringify(event) + " params: " + JSON.stringify(params));
       }
     };
 
