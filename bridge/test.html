@@ -142,6 +142,8 @@
     <br />
     <input type="button" value="Get Dating Token (forceFetch)" onClick="getDatingToken(true)" />
     </br>
+    <input type="button" value="Get Client Info" onClick="getClientInfo()" />
+    </br>
     <input type="button" value="Send Verification Success" onClick="sendVerificationSuccess()" />
     <br />
     <input type="button" value="Send Verification Failed" onClick="sendVerificationError()" />
@@ -246,6 +248,28 @@
         if (forceFetch) {
           body = { forceFetch: true };
         }
+
+        if (os === "android") {
+          App.request(requestId, method, JSON.stringify(body))
+        } else {
+          window.webkit.messageHandlers.App.postMessage({
+            requestId: requestId,
+            method: method,
+            body: body,
+          });
+        }
+
+        errorDiv.textContent = "";
+      } catch (error) {
+        errorDiv.textContent = error;
+      }
+    }
+
+    function getClientInfo() {
+      try {
+        const requestId = getRequestId();
+        const method = "Dating.getClientInfo";
+        let body = {};
 
         if (os === "android") {
           App.request(requestId, method, JSON.stringify(body))
