@@ -243,6 +243,10 @@
         jwtDisplay.style.display = "block";
         errorDiv.textContent = "";
       },
+
+      onEvent: function() {
+        console.log("Data => " + JSON.stringify(data));
+      }
     };
 
     function getDatingToken(forceFetch) {
