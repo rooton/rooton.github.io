@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WHIP Client - Send to WebRTC</title>
+</head>
+
+<body>
+    <video id="localVideo" autoplay muted></video>
+    <button id="startStreaming">Start Streaming to WHIP</button>
+    <button id="stopStreaming" disabled>Stop Streaming</button>
+
+    <script src="js/whip.js"></script>
+    <script>
+        const localVideo = document.getElementById('localVideo');
+        const startStreaming = document.getElementById('startStreaming');
+        const stopStreaming = document.getElementById('stopStreaming');
+
+        // Usage example
+        const whipClient = new WHIPClient('https://customer-ztv7sp7rxbh8siff.cloudflarestream.com/10563f84b10e90f990b8fbaefa16cd06k6c359455d77c430c3f3ced4d8008599d/webRTC/publish');
+
+        // Start streaming
+        async function startStream() {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            localVideo.srcObject = stream;
+            await whipClient.startStreaming(stream);
+            console.log('Streaming started');
+        }
+
+        // Stop streaming
+        async function stopStream() {
+            await whipClient.stopStreaming();
+            console.log('Streaming stopped');
+        }
+
+        // Start streaming to WHIP endpoint
+        startStreaming.addEventListener('click', async () => {
+            try {
+                await startStream();
+                startStreaming.disabled = true;
+                stopStreaming.disabled = false;
+            } catch (error) {
+                console.error('Error starting WHIP streaming:', error);
+            }
+        });
+
+        // Stop streaming
+        stopStreaming.addEventListener('click', async () => {
+            await stopStream();
+            startStreaming.disabled = false;
+            stopStreaming.disabled = true;
+        });
+    </script>
+</body>
+
+</html>
