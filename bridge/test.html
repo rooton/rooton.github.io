@@ -215,6 +215,12 @@
       }
     };
 
+    window.AppEvent = {
+      ClientSettingsChanged: function (data) {
+        console.log("Data => " + JSON.stringify(data));
+      }
+    }
+
     window.AppHandlers = {
       onRequestSuccess: function (requestId, data) {
         const payload = data ? ", Data => " + JSON.stringify(data) : "";
